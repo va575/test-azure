@@ -1,6 +1,6 @@
 #Stage 1
 # initialize build and set base image for first stage
-FROM maven:3.6.3-adoptopenjdk-11 as stage1
+FROM maven:3.8.5-openjdk-8 as stage1
 # speed up Maven JVM a bit
 ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 # set working directory
@@ -15,7 +15,7 @@ COPY ./src ./src
 RUN mvn clean install -Dmaven.test.skip=true
 #Stage 2
 # set base image for second stage
-FROM adoptopenjdk/openjdk11:jre-11.0.9_11-alpine as stage2
+FROM adoptopenjdk/openjdk8:jre8u292-b10-alpine as stage2
 # set deployment directory
 WORKDIR /opt/demo
 # copy over the built artifact from the maven image
